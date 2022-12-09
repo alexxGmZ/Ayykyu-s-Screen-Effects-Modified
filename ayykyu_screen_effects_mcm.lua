@@ -3,7 +3,7 @@ function on_mcm_load()
 		id = "screen_effects",
 		sh = true,
 		gr = {
-			{id = "title", type = "slide", link = "ui_options_slider_player", text = "", size = {512, 50}, spacing = 20 },
+			{id = "title", type = "slide", link = "ui_options_slider_player", text = "ui_mcm_screen_effects_title", size = {512, 50}, spacing = 20 },
 			{id = "HEALTH_EFFECT",
 				type = "check",
 				val = 1,

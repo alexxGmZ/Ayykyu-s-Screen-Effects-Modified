@@ -24,9 +24,9 @@ function load_settings()
 	end
 
 	HEALTH_EFFECT = ui_mcm.get("screen_effects/HEALTH_EFFECT")
-	HEALTH_BLUR_EFFECT = ui_mcm.get("screen_effects/HEALTH_BLUR_EFFECT")
+	-- HEALTH_BLUR_EFFECT = ui_mcm.get("screen_effects/HEALTH_BLUR_EFFECT")
 	STAMINA_EFFECT = ui_mcm.get("screen_effects/STAMINA_EFFECT")
-	STAMINA_BLUR_EFFECT = ui_mcm.get("screen_effects/STAMINA_BLUR_EFFECT")
+	-- STAMINA_BLUR_EFFECT = ui_mcm.get("screen_effects/STAMINA_BLUR_EFFECT")
 	BLEEDING_EFFECT = ui_mcm.get("screen_effects/BLEEDING_EFFECT")
 	RADIATION_EFFECT = ui_mcm.get("screen_effects/RADIATION_EFFECT")
 end
@@ -42,8 +42,8 @@ function actor_on_update()
 	local radiation = db.actor.radiation
 
 	if HEALTH_EFFECT then
-		local health_blur_effect = (1 - health - (health * 0.9))
-		get_console():execute("r__saturation " .. default_saturation * health)
+		-- local health_blur_effect = (1 - health - (health * 0.9))
+		-- get_console():execute("r__saturation " .. default_saturation * health)
 
 		if health_blur_effect > 0 then
 			level.add_pp_effector("snd_shock.ppe",19982,true)
@@ -54,9 +54,10 @@ function actor_on_update()
 	end
 
 	if STAMINA_EFFECT then
+		local stamina_blur_effect = 1 - stamina
 		if stamina < 0.4 then
 			level.add_pp_effector("yantar_underground_psi.ppe",1997,true)
-			level.set_pp_effector_factor(1997,playerpowereffect * 0.8)
+			level.set_pp_effector_factor(1997,stamina_blur_effect * 0.8)
 		else
 			level.remove_pp_effector("yantar_underground_psi.ppe",1997,true)
 		end
@@ -65,7 +66,7 @@ function actor_on_update()
 	if BLEEDING_EFFECT then
 		if bleeding > 0 then
 			level.add_pp_effector("bloody.ppe",1996,true)
-			level.set_pp_effector_factor(1996,playerbleedeffect)
+			level.set_pp_effector_factor(1996,bleeding)
 		else
 			level.remove_pp_effector(1996)
 		end
