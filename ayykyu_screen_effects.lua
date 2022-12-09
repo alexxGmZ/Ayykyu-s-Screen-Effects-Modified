@@ -32,57 +32,77 @@ function load_settings()
 end
 
 function actor_on_update()
-	if not (db.actor:alive()) then
+	if not db.actor:alive() then
 		return
 	end
 
-	local health = db.actor.health
-	local stamina = db.actor.power
-	local bleeding = db.actor.bleeding
-	local radiation = db.actor.radiation
+	-- initial effects variable
+	local playerhealtheffect = ( 1 - db.actor.health )
+	local playerhealthblureffect = ( 1 - db.actor.health - (db.actor.health * 0.9) )
+	local playerpowereffect = ( 1 - db.actor.power )
+	local playerbleedeffect = db.actor.bleeding
 
-	if HEALTH_EFFECT then
-		-- local health_blur_effect = (1 - health - (health * 0.9))
-		-- get_console():execute("r__saturation " .. default_saturation * health)
+	-- get_console():execute("r__saturation " .. DEFAULT_SATURATION)
 
-		if health_blur_effect > 0 then
+	if playerhealthblureffect < 0 then
+		playerhealthblureffect = 0
+	end
+
+	-- Health Effects
+	-- db.actor.health is the amount of health the player has
+	-- 100% is 1
+	if db.actor.health < 1 then
+		-- multiply the saturation to the amount of health
+		-- get_console():execute("r__saturation " .. (DEFAULT_SATURATION * db.actor.health))
+
+		if playerhealthblureffect > 0 and isactcondset4 ~= true then
 			level.add_pp_effector("snd_shock.ppe",19982,true)
-			level.set_pp_effector_factor(19982,playerhealthblureffect * 0.1)
-		else
+			isactcondset4 = true
+		end
+
+		-- level.set_pp_effector_factor(19981,playerhealtheffect * 0.3)
+		level.set_pp_effector_factor(19982,playerhealthblureffect * 0.125)
+
+		if playerhealthblureffect == 0 and isactcondset4 ~= false then
 			level.remove_pp_effector(19982)
+			isactcondset4 = false
 		end
-	end
 
-	if STAMINA_EFFECT then
-		local stamina_blur_effect = 1 - stamina
-		if stamina < 0.4 then
-			level.add_pp_effector("yantar_underground_psi.ppe",1997,true)
-			level.set_pp_effector_factor(1997,stamina_blur_effect * 0.8)
-		else
-			level.remove_pp_effector("yantar_underground_psi.ppe",1997,true)
-		end
+		isactcondset = true
 	end
+	-- Health Effects
 
-	if BLEEDING_EFFECT then
-		if bleeding > 0 then
+	-- Bleeding Effects
+	-- db.actor.bleeding is a multiplier of the bleeding effects
+	-- if db.actor.bleeding is 0 then the player is not bleeding
+	if db.actor.bleeding > 0 then
+		if isactcondset2 ~= true then
 			level.add_pp_effector("bloody.ppe",1996,true)
-			level.set_pp_effector_factor(1996,bleeding)
-		else
-			level.remove_pp_effector(1996)
 		end
+		level.set_pp_effector_factor(1996,playerbleedeffect)
+		isactcondset2 = true
 	end
+	if db.actor.bleeding == 0 and isactcondset ~= false then
+		level.remove_pp_effector(1996)
+		isactcondset2 = false
+	end
+	-- Bleeding Effects
 
-	if RADIATION_EFFECT then
-		if radiation > 0 then
-			level.add_pp_effector("thermal.ppe",1995,true)
-			level.add_pp_effector("yantar_underground_psi.ppe",1999,true)
-			level.set_pp_effector_factor(1995,db.actor.radiation)
-			level.set_pp_effector_factor(1999,db.actor.radiation)
-		else
-			level.remove_pp_effector(1995)
-			level.remove_pp_effector(1999)
+	-- Stamina Effects
+	-- db.actor.power is the stamina
+	-- 100% is 1
+	if db.actor.power < 0.4 then
+		if isactcondset3 ~= true then
+			level.add_pp_effector("yantar_underground_psi.ppe",1997,true)
 		end
+		level.set_pp_effector_factor(1997,playerpowereffect * 0.4)
+		isactcondset3 = true
 	end
+	if db.actor.power > 0.5 and isactcondset3 ~= false then
+		level.remove_pp_effector(1997)
+		isactcondset3 = false
+	end
+	-- Stamina Effects
 end
 
 function on_game_start()
