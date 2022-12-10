@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="windows-1251"?>
+<string_table>
+	<string id="ui_mcm_menu_screen_effects">
+		<text>Ayykyu's Screen Effects Modified</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_title">
+		<text>Ayykyu's Screen Effects Modified by Handsome_ooyeah</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_HEALTH_SATURATION_EFFECT">
+		<text>Enable Health Saturation Effects</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_DEFAULT_SATURATION">
+		<text>Saturation</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_DEFAULT_SATURATION_desc">
+		<text>
+			The Saturation in the Settings will be useless, so edit the saturation here.\n
+			Enable Health Saturation Effects first.
+		</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_HEALTH_EFFECT">
+		<text>Enable Health Blur Effect</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_STAMINA_EFFECT">
+		<text>Enable Stamina Blur Effect</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_BLEEDING_EFFECT">
+		<text>Enable Bleeding Effect</text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_RADIATION_EFFECT">
+		<text>Enable Radiation Effect</text>
+	</string>
+
+	<!-- <string id="ui_mcm_screen_effects_">
+		<text></text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_">
+		<text></text>
+	</string>
+
+	<string id="ui_mcm_screen_effects_">
+		<text></text>
+	</string> -->
+
+</string_table>
