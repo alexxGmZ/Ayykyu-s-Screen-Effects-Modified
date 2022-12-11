@@ -75,6 +75,10 @@ function actor_on_update()
 
 		isactcondset = true
 	end
+	if not HEALTH_EFFECT then
+		level.remove_pp_effector(19982)
+		isactcondset4 = false
+	end
 
 	-- Bleeding Effects
 	-- db.actor.bleeding is a multiplier of the bleeding effects
@@ -90,6 +94,10 @@ function actor_on_update()
 		level.remove_pp_effector(1996)
 		isactcondset2 = false
 	end
+	if not BLEEDING_EFFECT then
+		level.remove_pp_effector(1996)
+		isactcondset2 = false
+	end
 
 	-- Stamina Effects
 	-- db.actor.power is the stamina
@@ -102,6 +110,10 @@ function actor_on_update()
 		isactcondset3 = true
 	end
 	if stamina_amount > 0.5 and isactcondset3 ~= false then
+		level.remove_pp_effector(1997)
+		isactcondset3 = false
+	end
+	if not STAMINA_EFFECT then
 		level.remove_pp_effector(1997)
 		isactcondset3 = false
 	end
@@ -123,11 +135,16 @@ function actor_on_update()
 		level.remove_pp_effector(1999)
 		radeffect = false
 	end
+	if not RADIATION_EFFECT then
+		level.remove_pp_effector(1995)
+		level.remove_pp_effector(1999)
+		radeffect = false
+	end
 end
 
 function on_game_start()
 	RegisterScriptCallback("on_option_change", load_settings)
 	RegisterScriptCallback("actor_on_first_update", load_settings)
-	RegisterScriptCallback( "actor_on_update", actor_on_update )
+	RegisterScriptCallback("actor_on_update", actor_on_update)
 end
 

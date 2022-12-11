@@ -10,7 +10,7 @@ function on_mcm_load()
 				def = true,
 			},
 			{id = "DEFAULT_SATURATION",
-				type = "track", val = 1,
+				type = "track", val = 2,
 				def = 1,
 				min = 0.4,
 				max = 2,

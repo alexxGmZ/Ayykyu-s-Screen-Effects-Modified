@@ -7,7 +7,7 @@ function on_mcm_load()
 			{id = "HEALTH_SATURATION_EFFECT",
 				type = "check",
 				val = 1,
-				def = true,
+				def = false,
 			},
 			{id = "DEFAULT_SATURATION",
 				type = "track", val = 2,
